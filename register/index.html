@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Attica Gold</title>
+	<link rel="shortcut icon" type="image/png" href="../images/favicon.png" />
+
+	<!-- Vendor styles -->
+	<link rel="stylesheet" href="../vendor/fontawesome/css/font-awesome.css" />
+	<link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.css" />
+
+	<!-- App styles -->
+	<link rel="stylesheet" href="../fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
+	<link rel="stylesheet" href="../fonts/pe-icon-7-stroke/css/helper.css" />
+	<link rel="stylesheet" href="../styles/style.css">
+
+	<style>
+	body{
+		background-image: url("public/images/gold-bg.jpg");
+		background-repeat: repeat;
+	}
+	.bg-color{
+		background-color: #760107;
+	}
+	.hpanel .panel-body{
+		background-color: #760107;
+		color: white;
+		padding: 40px;
+	}
+	.heading-text{
+		color: #760107;
+	}
+	.btn-design{
+		color: #ffc107;
+		background-color: transparent;
+		border: 2px solid #ffc107;
+		border-radius: 3px;
+	}
+	#results img{
+		width:100px;
+	}
+	.branchNameDisplay{
+		border: 4px solid #760107;
+		border-radius: 10px;
+		padding: 3px 20px;
+		color: #760107;
+	}
+	</style>
+
+</head>
+<body class="light-skin blank">
+
+	<div id="root"></div>
+
+	<!-- Vendor scripts -->
+	<script src="../vendor/jquery/dist/jquery.min.js"></script>
+	<script src="../vendor/jquery-ui/jquery-ui.min.js"></script>
+	<script src="../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!-- App scripts -->
+	<script src="../scripts/webcam.min.js"></script>
+
+	<script>
+	// WEBCAM RELATED
+	Webcam.set({
+		width: 210,
+		height: 180,
+		image_format: 'jpeg',
+		jpeg_quality: 100
+	});
+	// Webcam.attach('#my_camera');
+	function take_snapshot() {
+		Webcam.snap(function(data_uri) {
+			$(".image-tag").val(data_uri);
+			document.getElementById('results').innerHTML = '<img src="' + data_uri + '"/>';
+		});
+	}
+	</script>
+
+	<script  src="customerRegister.js"></script>
+
+</body>
+
+</html>
