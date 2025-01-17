@@ -3,7 +3,7 @@
 		<ul class="nav" id="side-menu">
 			<li><a href="inbox.php"><i style="color:#990000;width:20px" class="fa fa-envelope"></i> MailBox</a></li>
 			<li><a href="dashboardApproval.php"><i style="color:#990000;width:20px" class="fa fa-dashboard"></i> Dashboard</a></li>
-<!-- 			<li><a href="zonalApprovalRemarks.php"><i style="color:#990000;width:20px" class="fa fa-bell-o"></i> Notification</a></li> -->
+			<!-- 			<li><a href="zonalApprovalRemarks.php"><i style="color:#990000;width:20px" class="fa fa-bell-o"></i> Notification</a></li> -->
 			<li><a href="xmanageCustomer.php"><i style="color:#990000;width:20px" class="fa fa-ban"></i></span> Blocked <sup><?php echo $customerCount; ?></sup></a></li>
 			<li><a href="assignBranch.php"><span class="nav-label"><i style="color:#990000; width:20px;" class="fa fa-phone"></i> BM Details</span></a></li>
 			<li>
@@ -20,6 +20,12 @@
 				<ul class="nav nav-second-level">
 					<li><a href="editCustomers.php"> Customer Name</a></li>
 					<li><a href="branchBillList.php"> Bill Name</a></li>
+				</ul>
+			</li>
+			<li><a href="#"><span class="nav-label"><b><i style="color:#990000; width:20px" class="fa fa-users"></i> Gold Buyer</b></span><b><span class="fa arrow"></span></b></a>
+				<ul class="nav nav-second-level">
+					<li><a href="buyerlist.php">Buyer Profile</a></li>
+					<li><a href="buyerquatelist.php">Buyer Quatation </a></li>
 				</ul>
 			</li>
 			<li>
