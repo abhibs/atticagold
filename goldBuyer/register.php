@@ -85,7 +85,7 @@
 						<label for="regMobile" class="form-label">Mobile number</label>
 						<div class="input-group mb-3">
 							<span class="input-group-text" id="basic-addon1">+91</span>
-							<input type="number" name="regMobile" class="form-control">
+							<input type="text" name="regMobile" class="form-control" pattern="^\d{10}$" title="Please enter a valid 10-digit mobile number">
 							<div class="invalid-feedback" id="mobile-number-feedback">! Please, Enter valid 10 digit mobile number</div>
 						</div>
 					</div>
@@ -122,7 +122,7 @@
 					</div>
 					<div class="form-group form-group-name">
 						<label for="regZip" class="form-label">Zip</label>
-						<input type="text" name="regZip" class="form-control" id="regZip" placeholder="123456" required autocomplete="off">
+						<input type="text" name="regZip" class="form-control" id="regZip" placeholder="123456" required autocomplete="off" pattern="^\d{6}$" title="Please enter a valid 6-digit pincode">
 						<div class="invalid-feedback">! Please, enter your pincode!</div>
 					</div>
 
@@ -134,18 +134,19 @@
 							<i id="togglePassword" class="fa fa-eye-slash"></i>
 						</div>
 					</div>
-					<!-- <div class="form-group" style="margin-bottom: 0px;">
+					<div class="form-group" style="margin-bottom: 0px;">
 						<p style="margin-bottom: 0px;">Verify your Mobile Number through OTP</p><br>
-					</div> -->
+					</div> 
 					<div class="form-group form-group-name">
-						<!-- <button type="button" class="btn btn-primary form-submit-btn w-100" id="regOTPButton" style="margin-top: 12px;">Send OTP</button> -->
+						<button type="button" class="btn btn-primary form-submit-btn w-100" id="regOTPButton" style="margin-top: 12px;">Send OTP</button>
+						<br><br>
 						<button type="submit" class="btn btn-primary form-submit-btn" name="registerBuyer">Register</button>
 					</div>
-					<!-- <div class="form-group form-group-name">
+					<div class="form-group form-group-name">
 						<input type="text" name="regOTP" class="form-control  mt-3" id="regOTP" maxlength="6" placeholder="OTP" required>
-					</div> -->
+					</div>
 
-					<!-- <div class="d-grid gap-2 mt-3" id="submit-div"></div> -->
+					<div class="d-grid gap-2 mt-3" id="submit-div"></div>
 				</form>
 
 			</section>
