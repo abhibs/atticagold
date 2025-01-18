@@ -47,7 +47,7 @@
 					<div class="widget-content">
 						<a href="dashboard.php" class="nav-link">Dashboard</a>
 						<!-- <a href="submission.php" class="nav-link">Submission</a> -->
-						<a href="profile.php" class="nav-link">Profile</a>
+						<!-- <a href="profile.php" class="nav-link">Profile</a> -->
 						<a href="logout.php" class="nav-link">Logout</a>
 					</div>
 				</div>
