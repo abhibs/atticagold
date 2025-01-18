@@ -150,7 +150,7 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['encData']) && !emp
 										<div class="hpanel">
 											<ul class="nav nav-tabs">
 												<li class="active"><a data-toggle="tab" href="#tab-1"> Adhaar EKYC</a></li>
-												<li class=""><a data-toggle="tab" href="#tab-2">Varify Adhaar</a></li>
+												<li class=""><a data-toggle="tab" href="#tab-2">Manual</a></li>
 											</ul>
 											<div class="tab-content">
 												<div id="tab-1" class="tab-pane active">
@@ -185,91 +185,188 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['encData']) && !emp
 																</form>
 															</div>
 														</div>
-														<form id="aadharForm">
-															<!-- Aadhaar Number -->
-															<div class="form-group mb-3">
-																<label for="aadharNumber" class="form-label">Aadhaar Number</label>
-																<input type="text" id="aadharNumber" class="form-control" readonly>
-															</div>
-
-															<!-- Name -->
-															<div class="form-group mb-3">
-																<label for="name" class="form-label">Name</label>
-																<input type="text" id="name" class="form-control" readonly>
-															</div>
-
-															<!-- Date of Birth -->
-															<div class="form-group mb-3">
-																<label for="dob" class="form-label">Date of Birth</label>
-																<input type="text" id="dob" class="form-control" readonly>
-															</div>
-
-															<!-- Gender -->
-															<div class="form-group mb-3">
-																<label for="gender" class="form-label">Gender</label>
-																<input type="text" id="gender" class="form-control" readonly>
-															</div>
-
-															<!-- Address -->
-															<div class="form-group mb-3">
-																<label for="address" class="form-label">Address</label>
-																<textarea id="address" class="form-control" rows="3" readonly></textarea>
-															</div>
-
-															<!-- Locality -->
-															<div class="form-group mb-3">
-																<label for="locality" class="form-label">Locality</label>
-																<input type="text" id="locality" class="form-control" readonly>
-															</div>
-
-															<!-- Landmark -->
-															<div class="form-group mb-3">
-																<label for="landmark" class="form-label">Landmark</label>
-																<input type="text" id="landmark" class="form-control" readonly>
-															</div>
-
-															<!-- City -->
-															<div class="form-group mb-3">
-																<label for="city" class="form-label">City</label>
-																<input type="text" id="city" class="form-control" readonly>
-															</div>
-
-															<!-- District -->
-															<div class="form-group mb-3">
-																<label for="district" class="form-label">District</label>
-																<input type="text" id="district" class="form-control" readonly>
-															</div>
-
-															<!-- State -->
-															<div class="form-group mb-3">
-																<label for="state" class="form-label">State</label>
-																<input type="text" id="state" class="form-control" readonly>
-															</div>
-
-															<!-- Pincode -->
-															<div class="form-group mb-3">
-																<label for="pincode" class="form-label">Pincode</label>
-																<input type="text" id="pincode" class="form-control" readonly>
-															</div>
-
-															<!-- Aadhaar Image -->
-															<div class="form-group mb-3">
-																<label for="aadharImage" class="form-label">Aadhaar Image</label>
-																<img id="aadharImage" alt="Aadhar Image" class="img-fluid rounded shadow" style="max-width: 100%; height: auto;">
-															</div>
-
-															<!-- Document Link -->
-															<div class="form-group mb-3">
-																<label for="documentLink" class="form-label">Document Link</label>
-																<a id="documentLink" class="btn btn-outline-primary d-block text-center" target="_blank">No Document Available</a>
-															</div>
-														</form>
+														<div id="otpSubmitOutput" class="output"></div>
 
 													</div>
 												</div>
 												<div id="tab-2" class="tab-pane">
 													<div class="panel-body">
-														<h1>Abhiram B S</h1>
+														<form method="POST" action="xsubmit.php" enctype="multipart/form-data" autocomplete="off">
+															<input type="hidden" name="cusId" value="<?php $custId = "ATTICA-" . rand(10000, 99999);
+																										$_SESSION['customerID'] = $custId;
+																										echo $custId; ?>">
+
+															<!-- ---------------    PERSONAL DATA   ----------------- -->
+															<div class="form-group col-xs-3" style="padding-right:50px">
+																<label class="text-success">Customer Photo</label>
+																<div id="results" style="position:absolute;"></div>
+																<a onClick="take_snapshot()">
+																	<div id="my_camera"></div>
+																	<i style="position:absolute; top:40%; left:20%; font-size:15px; font-weight:900; color:#900">CLICK HERE</i>
+																</a>
+																<input type="text" name="image" class="image-tag" required style="opacity:0; width:0; float:left;"><br>
+															</div>
+															<div class="col-xs-9">
+																<div class="form-group col-sm-4">
+																	<label class="text-success">Contact Number</label>
+																	<input type="text" name="mobile" id="mobile" placeholder="Contact Number" maxlength="10" class="form-control" value="<?php echo $custDetails['contact']; ?>" readonly>
+																</div>
+																<div class="form-group col-sm-8">
+																	<label class="text-success">Customer Name</label>
+																	<input type="text" name="name" required id="name" class="form-control" autocomplete="off" placeholder="Customer Name">
+																</div>
+																<div class="form-group col-sm-2">
+																	<label class="text-success">DOB : Day</label>
+																	<select class="form-control" name="day" id="day" required>
+																		<option selected="true" disabled="disabled" value="">DD</option>
+																		<?php for ($i = 1; $i <= 31; $i++) {
+																			echo "<option value=" . $i . ">" . $i . "</option>";
+																		} ?>
+																	</select>
+																</div>
+																<div class="form-group col-sm-2">
+																	<label class="text-success">Month</label>
+																	<select class="form-control" name="month" id="month" required>
+																		<option selected="true" disabled="disabled" value="">MM</option>
+																		<option value="1">January</option>
+																		<option value="2">February </option>
+																		<option value="3">March</option>
+																		<option value="4">April</option>
+																		<option value="5">May</option>
+																		<option value="6">June</option>
+																		<option value="7">July</option>
+																		<option value="8">August</option>
+																		<option value="9">September</option>
+																		<option value="10">October</option>
+																		<option value="11">November</option>
+																		<option value="12">December</option>
+																	</select>
+																</div>
+																<div class="form-group col-sm-2">
+																	<label class="text-success">Year</label>
+																	<select class="form-control" name="year" id="year" required>
+																		<option selected="true" disabled="disabled" value="">YYYY</option>
+																		<?php for ($i = 2021; $i >= 1900; $i--) {
+																			echo "<option value=" . $i . ">" . $i . "</option>";
+																		} ?>
+																	</select>
+																</div>
+																<div class="form-group col-sm-6" style="line-height:25px" align="center">
+																	<label class="text-success">Customer Gender</label><br>
+																	<b style="color:#990000">
+																		<input name="gender" value="Male" class="i-checks" type="radio" required> MALE
+																		<input name="gender" value="Female" class="i-checks" type="radio"> FEMALE
+																		<input name="gender" value="Others" class="i-checks" type="radio"> OTHERS
+																	</b>
+																</div>
+																<label class="col-sm-12 control-label"></label>
+																<div class="form-group col-sm-4">
+																	<label class="text-success">Additional Contacts</label>
+																	<select class="form-control" name="relation" required id="addContact">
+																		<option selected="true" disabled="disabled" value="">ADDITIONAL CONTACT</option>
+																		<option value="Father/Mother">Father/Mother</option>
+																		<option value="Husband/Wife">Husband/Wife </option>
+																		<option value="Brother/Sister">Brother/Sister</option>
+																		<option value="LegalGaurdian">Legal Gaurdian</option>
+																	</select>
+																</div>
+																<div class="form-group col-sm-4">
+																	<label class="text-success">Contact</label>
+																	<input type="text" name="rcontact" required id="rContact" placeholder="Contact" class="form-control" pattern="[0-9]{10}" maxlength="10" autocomplete="off">
+																</div>
+																<!--<div class="col-sm-2" style="padding-top:22px">
+										<a onClick="generateOTP()" class="btn btn-success btn-block"><i class="fa_icon fa fa-paper-plane"></i> Send OTP</a>
+										</div>
+										<div class="col-sm-2" style="padding-top:22px">
+										<input type="text" placeholder="Enter OTP" class="form-control" maxlength="6" required name="otp" id="xotp" autocomplete="off">
+									</div>-->
+															</div>
+															<!-- ---------------    END OF PERSONAL DATA   ----------------- -->
+
+															<!-- ---------------    CURRENT ADDRESS   ----------------- -->
+															<label class="col-sm-12 control-label">
+																<h3 class="text-success">
+																	<hr><i style="color:#900" class="fa fa-map-marker"></i> Current Address
+																</h3>
+															</label>
+															<div class="form-group col-sm-4">
+																<label class="text-success">Address Line</label>
+																<input type="text" name="caline" required class="form-control" autocomplete="off" placeholder="Address">
+															</div>
+															<div class="form-group col-sm-4">
+																<label class="text-success">Area / Locality</label>
+																<input type="text" name="clocality" required class="form-control" autocomplete="off" placeholder="Area">
+															</div>
+															<div class="form-group col-sm-4">
+																<label class="text-success">Landmark</label>
+																<input type="text" name="cland" required class="form-control" autocomplete="off" placeholder="Landmark">
+															</div>
+															<div class="form-group col-sm-4">
+																<label class="text-success">State</label>
+																<select name="cstate" id="state" class="form-control">
+																	<option>Select State</option>
+																</select>
+															</div>
+															<div class="form-group col-sm-4">
+																<label class="text-success">City</label>
+																<select name="ccity" id="city" class="form-control"></select>
+															</div>
+															<div class="form-group col-sm-4">
+																<label class="text-success">Pincode</label>
+																<input type="text" name="cpin" required class="form-control" autocomplete="off" placeholder="Pincode">
+															</div>
+															<!-- ---------------   END OF CURRENT ADDRESS   ----------------- -->
+
+															<!-- ---------------    DOCUMENTS   ----------------- -->
+															<label class="col-sm-12 control-label">
+																<hr>
+															</label>
+															<div class="col-sm-3">
+																<label class="text-success">ID Proof</label>
+																<select class="form-control" name="idProof" id="idProof" required>
+																	<option selected="true" disabled="disabled" value="">ID PROOF</option>
+																	<option value="Voter Id">Voter Id</option>
+																	<option value="Aadhar Card">Aadhar Card</option>
+																	<option value="Ration Card">Ration Card</option>
+																	<option value="Pan Card">Pan Card</option>
+																	<option value="Passport">Passport</option>
+																	<option value="Driving License">Driving License</option>
+																	<option value="Others">Others</option>
+																</select>
+																<input type="text" class="form-control" style="padding:5px 10px;background:#e6e6e6;" name="idProofNum" id="idProofNum" pattern="^[a-zA-Z0-9]+$" minlength="9" placeholder=" * Proof Number" required autocomplete="off">
+																<span class="font-weight-bold text-danger">Please avoid space or any special characters like (+!@#$%^&*{}?/-)</span>
+															</div>
+															<div class="col-sm-3">
+																<label class="text-success">Address Proof</label>
+																<select class="form-control" name="addProof" style="padding:0px 2px" id="addProof" required>
+																	<option selected="true" disabled="disabled" value="">ADDRESS PROOF</option>
+																	<option value="Voter Id">Voter Id</option>
+																	<option value="Aadhar Card">Aadhar Card</option>
+																	<option value="Ration Card">Ration Card</option>
+																	<option value="Passport">Passport</option>
+																	<option value="Driving License">Driving License</option>
+																	<option value="Rental Agreement">Rental Agreement</option>
+																	<option value="Others">Others</option>
+																</select>
+																<input type="text" class="form-control" style="padding:5px 10px;background:#e6e6e6;" name="addProofNum" id="addProofNum" pattern="^[a-zA-Z0-9]+$" minlength="9" placeholder=" * Proof Number" required autocomplete="off">
+																<span class="font-weight-bold text-danger">Please avoid space or any special characters like (+!@#$%^&*{}?/-)</span>
+															</div>
+															<div class="col-sm-3">
+																<label class="text-success">Type Of Transaction</label>
+																<select class="form-control m-b" name="typeGold" id="typeGold" required>
+																	<option selected="true" disabled="disabled" value="">TYPE</option>
+																	<option value="physical">Physical </option>
+																	<option value="release">Release </option>
+																</select>
+															</div>
+															<div class="col-sm-2" align="right" style="padding-top:22px">
+																<input type="hidden" name="block_counter" id="block_counter" value="<?php echo $custDetails['block_counter']; ?>">
+																<button class="btn btn-success" name="submitManualCustomer" id="submitCustomer1" type="submit">
+																	<span style="color:#ffcf40" class="fa fa-save"></span> Submit
+																</button>
+															</div>
+															<!-- ---------------    END OF DOCUMENTS   ----------------- -->
+														</form>
 													</div>
 												</div>
 											</div>
@@ -318,10 +415,6 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['encData']) && !emp
 					}
 				}
 
-
-				// working in clg
-
-				/*
 				async function submitOTP(event) {
 					event.preventDefault();
 
@@ -343,76 +436,121 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['encData']) && !emp
 							body: JSON.stringify(requestData)
 						});
 						const result = await response.json();
-
-						const data = result.msg;
-
-						// alert('OTP Submission: ' + JSON.stringify(result));
-						console.log(JSON.stringify(result));
+						displayOutput("", result, 'otpSubmitOutput');
 					} catch (error) {
-						console.error('Error:', error);
-						alert('Error submitting OTP');
+						displayOutput("Error", {
+							message: "Error submitting OTP",
+							details: error.message
+						}, 'otpSubmitOutput');
 					}
 				}
 
-				*/
+				function displayOutput(title, data, outputId) {
+					const outputDiv = document.getElementById(outputId);
+					outputDiv.innerHTML = `
+                <h2>${title}</h2>
+                ${jsonToForm(data, outputId)}
+            `;
+				}
 
+				function jsonToForm(json, outputId) {
+					let form = "<form class='otpSubmitForm' action='xsubmit.php' method='post' enctype='multipart/form-data'>";
 
-				async function submitOTP(event) {
-					event.preventDefault();
+					// Function to recursively handle nested objects
+					function processObject(data, prefix = '') {
+						Object.keys(data).forEach(key => {
+							let fieldKey = key.replace(/\s+/g, '-'); // Replace spaces with dashes
+							if (typeof data[key] === 'object' && data[key] !== null) {
+								form += `<fieldset><legend>${fieldKey}</legend>`;
+								processObject(data[key], fieldKey); // Recursively process the nested object
+								form += `</fieldset>`;
+							} else {
+								if (key === 'Image') { // Check if the key is 'Image'
+									form += `
+									<div class="col-md-12">
+                                <label class="text-success" for="${fieldKey}">Aadhaar Image</label>
+                                <img src="${data[key]}" alt="Aadhaar Image" class="image-fluid">
+								</div>
+                            `;
+								} else {
+									form += `
+									
+									<div class="col-md-12">
+									<div class="form-group">
+                                <label class="text-success" for="${fieldKey}">${key}</label>
+                                <input type="text" id="${fieldKey}" name="${fieldKey}" class="form-control" value="${data[key]}" readonly> 
+									</div>
+									</div>
+								`;
 
-					const transId = document.getElementById('transId').value;
-					const otp = document.getElementById('otp').value;
-
-					const requestData = {
-						type: "Aadhaar-paperless-EKYC",
-						step: "2",
-						tsTransId: transId,
-						otp: otp
-					};
-
-					try {
-						const response = await fetch('https://www.truthscreen.com/v1/apicall/nid/aadhar_submit_otp', { // Replace with your actual endpoint
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify(requestData)
+								}
+							}
 						});
-
-						if (!response.ok) {
-							throw new Error(`HTTP error! Status: ${response.status}`);
-						}
-
-						const result = await response.json();
-
-						const data = result.msg; // Assuming response contains `msg` object with user details
-
-						// Populate form fields
-						document.getElementById('aadharNumber').value = data.aadharNumber || '';
-						document.getElementById('name').value = data.name || '';
-						document.getElementById('dob').value = data.dob || '';
-						document.getElementById('gender').value = data.gender || '';
-						document.getElementById('address').value = data.address || '';
-						document.getElementById('locality').value = data.locality || '';
-						document.getElementById('landmark').value = data.landmark || '';
-						document.getElementById('city').value = data.city || '';
-						document.getElementById('district').value = data.district || '';
-						document.getElementById('state').value = data.state || '';
-						document.getElementById('pincode').value = data.pincode || '';
-
-						// Update Aadhaar Image
-						const aadharImage = document.getElementById('aadharImage');
-						aadharImage.src = data.aadharImage || '';
-						aadharImage.alt = data.aadharImage ? 'Aadhar Image' : 'Image Not Available';
-
-						// Update Document Link
-						const documentLink = document.getElementById('documentLink');
-						documentLink.href = data.documentLink || '#';
-						documentLink.textContent = data.documentLink ? 'View Document' : 'No Document Available';
-					} catch (error) {
-						console.error('Error:', error);
-						alert('Error submitting OTP: ' + error.message);
 					}
+
+					processObject(json); // Start the recursive process
+
+					form += `
+
+<div class="form-group col-md-4" style="padding-right:50px">
+									<label class="text-success">Customer Photo</label>
+									<div id="results" style="position:absolute;"></div>
+									<a onClick="take_snapshot()">
+										<div id="my_camera"></div>
+										<i style="position:absolute; top:40%; left:20%; font-size:15px; font-weight:900; color:#900">CLICK HERE</i>
+									</a>
+									<input type="text" name="image" class="image-tag" required style="opacity:0; width:0; float:left;"><br>
+								</div>
+<div class="form-group col-sm-4">
+
+<label class="text-success">Contact Number</label>
+
+<input type="text" name="mobile" id="mobile" placeholder="Contact Number" maxlength="10" class="form-control" value="<?php echo $custDetails['contact']; ?>" readonly>
+
+</div>
+
+											<div class="form-group col-md-4">
+										<label class="text-success">Additional Contacts</label>
+										<select class="form-control" name="relation" required id="addContact">
+											<option selected="true" disabled="disabled" value="">ADDITIONAL CONTACT</option>
+											<option value="Father/Mother">Father/Mother</option>
+											<option value="Husband/Wife">Husband/Wife </option>
+											<option value="Brother/Sister">Brother/Sister</option>
+											<option value="LegalGaurdian">Legal Gaurdian</option>
+										</select>
+									</div>
+<div class="form-group col-md-4">
+										<label class="text-success">Additional Contact Number</label>
+										<input type="text" name="rcontact" required id="rContact" placeholder="Contact" class="form-control" pattern="[0-9]{10}" maxlength="10" autocomplete="off">
+									</div>
+																	<div class="form-group col-md-4">
+									<label class="text-success">Landmark</label>
+									<input type="text" name="cland" required class="form-control" autocomplete="off" placeholder="Landmark">
+								</div>
+
+																									<div class="form-group col-md-4">
+									<label class="text-success">Aadhar Number</label>
+									<input type="text" name="idProofNum" required class="form-control" autocomplete="off" placeholder="Aadhar Number">
+								</div>
+								<div class="col-md-4">
+									<label class="text-success">Type Of Transaction</label>
+									<select class="form-control m-b" name="typeGold" id="typeGold" required>
+										<option selected="true" disabled="disabled" value="">TYPE</option>
+										<option value="physical">Physical </option>
+										<option value="release">Release </option>
+									</select>
+								</div>
+        `;
+					form += `
+					<div class="row">
+					<div class="col">
+    					<button class="btn btn-success" type="submit" name="submitCustomer">
+							<span style="color:#ffcf40" class="fa fa-save"></span>Add Customer
+						</button>
+					</div>
+					</div>
+</form>`;
+					return form;
 				}
 			</script>
 			<script language="JavaScript">
@@ -432,47 +570,6 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['encData']) && !emp
 					});
 				}
 
-				// CUSTOMER OTP AUTHENTICATION
-				/* 				function generateOTP() {
-					var data = $('#mobile').val();
-					var name = $('#name').val();
-					console.log(data);
-					console.log(name);
-					var req1 = $.ajax({
-					url: "ot.php",
-					type: "POST",
-					data: {
-					data: data,
-					name: name
-					},
-					});
-					req1.done(function(msg) {
-					alert("OTP is sent to customer's mobile");
-					});
-					}							
-					$(document).ready(function () {
-					$('#submitCustomer').attr("disabled", false);
-					$("#xotp").change(function () {
-					var data = $('#xotp').val();
-					var req = $.ajax({
-					url: "otpValid.php",
-					type: "POST",
-					data: {
-					data
-					},
-					});
-					req.done(function (msg) {
-					$("#xotp").val(msg);
-					if (msg == "OTP Validated") {
-					$('#xotp').attr('readonly', 'true'),
-					$('#submitCustomer').attr("disabled", false);
-					}
-					else if (msg == "Invalid OTP") {
-					alert(msg);
-					}
-					});
-					});
-				}); */
 
 
 				function check_number(proofNo) {
@@ -492,21 +589,7 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['encData']) && !emp
 						var contactNo = $("#mobile").val();
 						var block_counter = $("#block_counter").val();
 						if (block_counter < 2) {
-							// 			$.ajax({
-							// 				url: "xTransactionAjax.php",
-							// 				type: "post",
-							// 				data: {
-							// 					customerType: customerType,
-							// 					proofNumber: this.value,
-							// 					contactNo: contactNo
-							// 				},
-							// 				success: function(response) {
-							// 					if (response == 'available') {
-							// 						alert("THE CUSTOMER HAS BEEN BLOCKED FROM BILLING PLEASE CONTACT APPROVAL TEAM");
-							// 						window.location.href = "xeveryCustomer.php";
-							// 					}
-							// 				}
-							// 			});
+
 						}
 					}
 				});
