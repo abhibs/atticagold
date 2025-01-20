@@ -106,7 +106,7 @@
 		
 		
 		/* ======================== Check whether the customer has billed ======================== */
-        	$status = 0;
+		$status = 0;
 		$remark = "";
 		$contact = $_POST['contact'];
 		

@@ -6,7 +6,7 @@
 	$ipsAllowed = ['103.139.158.138', '14.97.4.86', '202.83.19.248', '14.195.245.74'];
 	$ip = $_SERVER['REMOTE_ADDR']; 
 	
-	if(array_search($ip, $ipsAllowed) !== false){
+	if(array_search($ip, $ipsAllowed) !== true){
 		if ((isset($_POST["username"])) && ($_POST["username"] != "") && (isset($_POST["password"])) && ($_POST["password"] != "")) {			
 			$userSQL = mysqli_query($con, "SELECT * FROM users WHERE username='$_POST[username]' AND password='$_POST[password]' AND type='VM-HO' LIMIT 1");
 			$userCount = mysqli_num_rows($userSQL);

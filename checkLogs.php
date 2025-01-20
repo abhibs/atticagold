@@ -31,7 +31,7 @@ $files = [
 	"Leads" => "import1.php"
 ];
 $ipsAllowed = ['103.139.158.138', '14.97.4.86', '202.83.19.248', '14.195.245.74'];
-$ipRestrict = ['IssueHead', 'Issuecall', 'Call Centre', 'Agent', 'VM-AD', 'Leads', 'Legal'];
+$ipRestrict = ['IssueHead', 'Issuecall', 'Call Centre', 'Agent', 'Leads', 'Legal'];
 $ip = $_SERVER['REMOTE_ADDR'];
 
 if (isset($_POST["username"]) && ($_POST["username"] != "") && isset($_POST["employeeid"]) && ($_POST["employeeid"] != "" && $_POST['loginotp'] == 'OTP Validated')) {

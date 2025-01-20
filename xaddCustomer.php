@@ -142,14 +142,14 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['encData']) && !emp
 						</div>
 
 
-						<div class="panel-body">
+						<!-- <div class="panel-body"> -->
 
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="hpanel">
 											<ul class="nav nav-tabs">
-												<li class="active"><a data-toggle="tab" href="#tab-1"> Adhaar EKYC</a></li>
+												<li class="active"><a data-toggle="tab" href="#tab-1"> Aadhar eKYC</a></li>
 												<li class=""><a data-toggle="tab" href="#tab-2">Manual</a></li>
 											</ul>
 											<div class="tab-content">
@@ -160,7 +160,7 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['encData']) && !emp
 															<div class="col-md-6">
 																<form id="requestOtpForm" onsubmit="requestOTP(event)">
 																	<div class="form-group">
-																		<label class="text-success">Customer Adhaar Number</label>
+																		<label class="text-success">Customer Aadhar Number</label>
 																		<input type="text" required id="aadhaarNumber" name="aadhaarNumber" placeholder="Enter Customer Adhar Number" class="form-control" pattern="[0-9]{12}" maxlength="12" autocomplete="off">
 																	</div>
 																	<button class="btn btn-success" type="submit">
@@ -378,7 +378,7 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['encData']) && !emp
 							</div>
 
 
-						</div>
+						<!-- </div> -->
 					</div>
 				</div>
 			</div>
