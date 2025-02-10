@@ -2,7 +2,7 @@
 
 	include("encryptAndDecrypt.php");
 
-	define('AUTHBRIDGE_USERNAME', "username:production@atticagoldcompany.com");
+	define('AUTHBRIDGE_USERNAME', "username:test@atticagoldcompany.com");
 	define('TOKEN', "India@2608");
 	$header = array(AUTHBRIDGE_USERNAME, "Content-Type:application/json");
 	
